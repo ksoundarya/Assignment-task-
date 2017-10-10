@@ -1,0 +1,1 @@
+This is testing overriding in JS. The current code doesn't allow us to handle someone with a first name and someone with a first and last name. You will need to fix it so that when someone passes a first and/or last name a function called speak can handle that, not a seperate function for "speaking" someone's name. 

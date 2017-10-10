@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Override Test</title>
+</head>
+<body class="tundra">
+  Why are you here?? Open the developer console and fix me :-D.
+  <!-- Loading Overlay -->
+  <!-- Configure Dojo first -->
+  <script type="text/javascript" src="../node_modules/DojoConfig.js"></script>
+  <!-- Load Dojo -->
+  <!-- ENABLE DEVELOPMENT CODE -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+  <!-- Pre-Load Compiled Application Script -->
+  <!-- Begin Application Script -->
+  <script type="text/javascript">
+    require([
+      ],
+      function(
+        )
+      {
+        /* I would like to handle people with just a first name differently compared to people with a first and last name. So I made two functions called speak that should handle that just fine; however, it doesn't seem to
+         */
+
+        //Why isn't this working? O_o
+        function speak(name)
+        {
+          if(!name || name == "") // Fixed, repleced assignment operator with equal(==) operator.
+          {
+            throw "Please provide name!";
+          }
+          console.log("Hello, %s", name);
+        }
+        
+        function speak(first, last)
+        {
+          // Make sure they provided a first and last name
+          if(!first || !last || first == "" || last == "")
+          {
+            throw "Please provide full name!";
+          }
+          console.log("Hello, %s %s", first, last);
+        }
+
+        speak("Rock", "Lee");
+        speak("Naruto");
+
+      });
+
+        </script>
+      </body>
+      </html>

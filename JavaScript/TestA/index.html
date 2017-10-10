@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Abstract Data Types Test</title>
+</head>
+<body class="tundra">
+  Why are you here?? Open the developer console and fix me :-D.
+  <!-- Loading Overlay -->
+  <!-- Configure Dojo first -->
+  <script type="text/javascript" src="../node_modules/DojoConfig.js"></script>
+  <!-- Load Dojo -->
+  <!-- ENABLE DEVELOPMENT CODE -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+  <!-- Pre-Load Compiled Application Script -->
+  <!-- Begin Application Script -->
+  <script type="text/javascript">
+    require([
+      'dojo/_base/declare'
+      ],
+      function(
+        declare
+        )
+      {
+        /* DO NOT MODIFY BELOW THIS LINE*/
+        var height = 0;
+        var hairColor = {0: "Brown", 1: "Green", 2: "Transparent", 3: "Blond"};
+        /* DO NOT MODIFY ABOVE THIS LINE */
+
+           // Make an Abstract Data Type and make an instance of that ADT using these fields.
+        var me = {
+          name: "Kimito Kagurazaka",
+          age: 15,
+          hairColor: hairColor[0],
+          height: 174,
+          getHeight: function()
+          {
+            return height + "cm";
+          }
+        };
+
+        console.log(me);
+
+        function Human(c) {
+            c.getHeight()
+        }
+
+       Human.prototype = me;
+        var human = new Human(me);
+        console.log(human.getHeight());
+
+      });
+
+        </script>
+      </body>
+      </html>        }

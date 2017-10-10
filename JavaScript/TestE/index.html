@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Web Programmer Sample JS</title>
+    <style>
+      table {
+          border-collapse: collapse; margin-bottom: 5px;
+      }
+
+      table, th, td {
+          border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body class="tundra">
+    <script type="text/javascript">
+      var dojoConfig = {
+        async: 1,
+        packages: [
+        ]
+      };
+    </script>
+    <!-- Load Dojo -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+    <script type="text/javascript">
+      require([
+        'dojo/text!./myJson.json',
+        'dojo/dom-construct',
+        './serverCalls.js',
+        'dojo/dom'
+      ],
+      function(
+        myJson,
+        domConstruct,
+        Server,
+        dom
+      )
+      {
+        var parsed = JSON.parse(myJson);
+        var server = new Server();
+
+        /* Make changes below this line - library must remain dojo, no importing JQuery, Angular, etc */
+
+        var bar = server.lookupInventoryDetails("001");
+        bar.then(function(foobar){console.log(foobar)});
+
+        // add stuff
+        var foo = function(arg)
+        {
+          var total = 0;
+          total = total + arg.amount
+          if (arg.childDivision.length > 0)
+            arg.childDivision.forEach(function(childs){
+              total = total + foo(childs)
+            })
+          return total;
+        }
+        console.log(parsed);
+
+        table2 = domConstruct.place(domConstruct.toDom("<table></table>"), "WCC_Portal")
+        table = domConstruct.place(domConstruct.toDom("<table></table>"), "WCC_Portal")
+
+        var row = domConstruct.toDom("<tr><th>ID</th><th>Amount</th></tr>");
+        domConstruct.place(row, table2);
+        var row = domConstruct.toDom("<tr><th>Inventory ID</th><th>Sales Amount</th><th>Sales Rep</th><th>Manager</th><th>Region</th><th>Account Number</th><th>Account Name</th><th>Account Amount</th></tr>");
+        domConstruct.place(row, table);
+        var lastId;
+        parsed.forEach(function (item) {
+          console.log(item);
+          bar = foo(item);
+          console.log("amoutn: %d", bar)
+          if (item.id == "1") {
+           if (bar = 80){
+             console.log("Amount for %s was correct = 80", item.id)
+            }
+          }
+          if (item.id == "2")
+          {
+            if (bar = 2)
+            {
+             console.log("Amount for %s was correct = 2", item.id)
+            }
+          }
+          if (item.id == "3")
+          {
+            if (bar = 12)
+            {
+             console.log("Amount for %s was correct = 12", item.id)
+            }
+          }
+          lastId = item.id;
+
+          var row = domConstruct.toDom("<tr><td>"+item.id+"</td><td>"+bar+"</td></tr>");
+          domConstruct.place(row, table2);
+
+          var inv = item.inventory;
+          inv.forEach(function(invntryItm)
+          {
+            var invtryDtls = server.lookupInventoryDetails(invntryItm)
+            invtryDtls.then(function(dtls){
+              console.log("Inventory: %o", dtls)
+              var salesRepid = dtls.salesRep;
+              var amount = dtls.amountOnHand;
+              this._salesamount = amount;
+              var salesRepDtls = server.lookupSalesRep(salesRepid)
+              salesRepDtls.then(function(repDtls)
+              {
+                console.log("Sales Rep: %o", repDtls);
+                this._salesrepName = repDtls.name;
+                server.lookupManager(repDtls.manager).then(function(mgrDtls){
+                    console.log("Manager: %o", mgrDtls);
+                    this._salesManager = mgrDtls.name;
+                    server.lookupRegion(mgrDtls.region).then(function(regnDtls)  {
+                      console.log("Region: %o", regnDtls);
+                      this._regionname = regnDtls.name;
+                      var regionAccount = server.lookupRegionAccounts(mgrDtls.region);
+                      regionAccount.then(function(rgnAcct){
+                         console.log("Region Account: %o",rgnAcct);
+                         this._accountNumber = rgnAcct.account;
+                         var account = server.lookupAccounts(rgnAcct.account);
+                        account.then(function(acctDtls)
+                        {
+                          console.log("Account Details: %o", acctDtls);
+                          var stickitHere = dom.byId("WCC_Portal");
+                          if (this._regionname == "Northwest")
+                          {
+                          var row = domConstruct.toDom("<tr style='background-color: aqua'><td>"+invntryItm+"</td><td>"+this._salesamount+"</td><td>"+this._salesrepName+"</td><td>"+this._salesManager+"</td><td>"+this._regionname+"</td><td>"+this._accountNumber+"</td><td>"+acctDtls.name+"</td><td>"+acctDtls.amount+"</td></tr>");
+                          domConstruct.place(row, table);
+                          }
+                          if (this._regionname == "Northeast")
+                          {
+                          var row = domConstruct.toDom("<tr style='background-color: cadetblue'><td>"+invntryItm+"</td><td>"+this._salesamount+"</td><td>"+this._salesrepName+"</td><td>"+this._salesManager+"</td><td>"+this._regionname+"</td><td>"+this._accountNumber+"</td><td>"+acctDtls.name+"</td><td>"+acctDtls.amount+"</td></tr>");
+                          domConstruct.place(row, table);
+                          }
+                          if (this._regionname == "Southwest")
+                          {
+                          var row = domConstruct.toDom("<tr style='background-color: Chartreuse'><td>"+invntryItm+"</td><td>"+this._salesamount+"</td><td>"+this._salesrepName+"</td><td>"+this._salesManager+"</td><td>"+this._regionname+"</td><td>"+this._accountNumber+"</td><td>"+acctDtls.name+"</td><td>"+acctDtls.amount+"</td></tr>");
+                          domConstruct.place(row, table);
+                          }
+                          if (this._regionname == "East")
+                          {
+                          var row = domConstruct.toDom("<tr style='background-color: LightCoral'><td>"+invntryItm+"</td><td>"+this._salesamount+"</td><td>"+this._salesrepName+"</td><td>"+this._salesManager+"</td><td>"+this._regionname+"</td><td>"+this._accountNumber+"</td><td>"+acctDtls.name+"</td><td>"+acctDtls.amount+"</td></tr>");
+                          domConstruct.place(row, table);
+                          }
+                          if (this._regionname == "West")
+                          {
+                          var row = domConstruct.toDom("<tr style='background-color: gold'><td>"+invntryItm+"</td><td>"+this._salesamount+"</td><td>"+this._salesrepName+"</td><td>"+this._salesManager+"</td><td>"+this._regionname+"</td><td>"+this._accountNumber+"</td><td>"+acctDtls.name+"</td><td>"+acctDtls.amount+"</td></tr>");
+                          domConstruct.place(row, table);
+                          }
+                        })
+                     });
+                    });
+                 });
+              })
+            },function(err){console.log(err)});
+          });
+        })
+      });
+      /* All changes above this line */
+    </script>
+    <div id="WCC_BasePage" class="WCC_BasePage">
+      <span class="WCC_htmlOnly">
+        <noscript>Your browser appears to have JavaScript disabled.</noscript>
+      </span>
+      <div id="WCC_Portal" tabIndex="1">
+      </div>
+    </div>
+  </body>
+</html>

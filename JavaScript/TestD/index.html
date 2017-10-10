@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Inheritance Test</title>
+</head>
+<body class="tundra">
+  Why are you here?? Open the developer console and fix me :-D.
+  <!-- Loading Overlay -->
+  <!-- Configure Dojo first -->
+  <script type="text/javascript" src="../node_modules/DojoConfig.js"></script>
+  <!-- Load Dojo -->
+  <!-- ENABLE DEVELOPMENT CODE -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+  <!-- Pre-Load Compiled Application Script -->
+  <!-- Begin Application Script -->
+  <script type="text/javascript">
+    require([
+      'dojo/on',
+      'dojo/Deferred',
+      '../js/xena.js'
+      ],
+            function(
+                    on,
+                    Deferred,
+                    xena,
+                    declare
+            ) {
+              // This is a strange dog, it makes a strange sound when it speaks... can you fix that?
+              var myDog = new xena();
+
+              myDog.speak = function() {
+                return "bow - wow";
+              };
+
+              console.log(myDog.speak());
+
+              // Well, your roommate will only let you get a dog if you also get a cat... so you're going to need
+              //  to make a cat too...
+              var myCat = new xena();
+              myCat.speak = function() {
+                return "meow - meow";
+              };
+              console.log(myCat.speak());
+
+            });
+
+        </script>
+      </body>
+      </html>

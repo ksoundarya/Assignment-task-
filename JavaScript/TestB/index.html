@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Async test</title>
+</head>
+<body class="tundra">
+  Why are you here?? Open the developer console and fix me :-D.
+  <!-- Loading Overlay -->
+  <!-- Configure Dojo first -->
+  <script type="text/javascript" src="../node_modules/DojoConfig.js"></script>
+  <!-- Load Dojo -->
+  <!-- ENABLE DEVELOPMENT CODE -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+  <!-- Pre-Load Compiled Application Script -->
+  <!-- Begin Application Script -->
+  <script type="text/javascript">
+    require([
+      'dojo/on',
+      'dojo/Deferred'
+      ],
+      function(
+        on,
+        Deferred
+        )
+      {
+        // Scroll to the bottom to see what you need to do
+
+        /* DO NOT EDIT BELOW THIS LINE */
+        var getTimeout = function()
+        {
+          return Math.floor(100 * Math.random());
+        };
+
+        PromiseTest = {
+          a: function()
+          {
+            var result = new Deferred();
+            setTimeout(function()
+            {
+              console.log('Why ');
+              result.resolve('A');
+            }, getTimeout());
+            return result.promise;
+          },
+          b: function()
+          {
+            var result = new Deferred();
+            setTimeout(function()
+            {
+              console.log(' are we');
+              result.resolve('B');
+            }, getTimeout());
+            return result.promise;
+          },
+          c: function()
+          {
+            var result = new Deferred();
+            setTimeout(function()
+            {
+              console.log(' not in');
+              result.resolve('C');
+            }, getTimeout());
+            return result.promise;
+          },
+          d: function()
+          {
+            var result = new Deferred();
+            setTimeout(function()
+            {
+              console.log(' order???');
+              result.resolve('D');
+            }, getTimeout());
+            return result.promise;
+          }
+        }
+        /* DO NOT EDIT ABOVE THIS LINE */
+
+
+        var done = "DONE!";
+        // Do not remove this function.
+        PromiseTest.e = function()
+          {
+            var result = new Deferred();
+            setTimeout(function()
+            {
+              console.log(this.done);
+              result.resolve(this.done);
+            }, getTimeout());
+            return result.promise;
+          }
+        // These aren't printing in order... why???
+        // Make all of these print in order, don't remove any.
+        /*PromiseTest.a();
+         PromiseTest.b();
+         PromiseTest.c();
+         PromiseTest.d();
+         PromiseTest.e();*/
+
+        var p = Promise.resolve()
+                .then(function() {
+                  return PromiseTest.a();
+                }).then(function() {
+                  return PromiseTest.b();
+                }).then(function() {
+                  return PromiseTest.c();
+                }).then(function() {
+                  return PromiseTest.d();
+                }).then(function() {
+                  return new Promise(function() {
+                    PromiseTest.e();
+                  })
+                })
+      });
+        </script>
+      </body>
+      </html>

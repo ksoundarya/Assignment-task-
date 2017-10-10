@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Callback Test</title>
+</head>
+<body class="tundra">
+  Why are you here?? Open the developer console and fix me :-D.
+  <!-- Loading Overlay -->
+  <!-- Configure Dojo first -->
+  <script type="text/javascript" src="../node_modules/DojoConfig.js"></script>
+  <!-- Load Dojo -->
+  <!-- ENABLE DEVELOPMENT CODE -->
+  <script type="text/javascript" src="../node_modules/dojo/dojo.js"></script>
+  <!-- Pre-Load Compiled Application Script -->
+  <!-- Begin Application Script -->
+  <script type="text/javascript">
+    require([
+      'dojo/on',
+      'dojo/Deferred'
+      ],
+      function(
+        on,
+        Deferred
+        )
+      {
+        
+        // We need to print someones name... but it won't print... fix it. 
+        var name = "Bob";
+
+        
+        /* DON'T EDIT BELOW THIS LINE */
+        function printName(name)
+        {
+          console.log("Hello %s", name); // made changes to this line in order to print name in console. Fixed by removing brackets.
+        }
+
+        printName(name);
+
+      });
+
+        </script>
+      </body>
+      </html>

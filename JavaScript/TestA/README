@@ -1,0 +1,1 @@
+Show us how well you know ADTs by making an ADT. Make an ADT called "Human" with the fields in the "me" variable, be sure to include methods for getting the age, height, and any other data that should be modified when being returned. For example, return "<age> years" as just a number is ambiguos... <age> months?
